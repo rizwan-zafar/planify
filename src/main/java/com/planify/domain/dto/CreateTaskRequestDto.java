@@ -7,6 +7,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
+import java.time.LocalDate;
+
 public record CreateTaskRequestDto(
         @NotBlank(message = ERROR_MESSAGE_TITLE_LENGTH)
         @Length(max = 255,message = ERROR_MESSAGE_TITLE_LENGTH)
@@ -17,7 +19,7 @@ public record CreateTaskRequestDto(
         String description,
 
         @FutureOrPresent(message = ERROR_MESSAGE_DUE_DATE_FUTURE)
-        String dueDate,
+        LocalDate dueDate,
 
         @NotNull(message = ERROR_MESSAGE_TASK_PRIORITY)
         TaskPriority priority
