@@ -7,24 +7,35 @@ import com.planify.domain.entity.Task;
 import com.planify.domain.mapper.TaskMapper;
 import com.planify.domain.service.TaskService;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api/v1/tasks")
 public class TaskController {
+    @Autowired
     private TaskService taskService;
+    @Autowired
     private TaskMapper taskMapper;
 
     @PostMapping
     public ResponseEntity<TaskDto> createTask(@Valid @RequestBody CreateTaskRequestDto createTaskRequestDto)
     {
-        Task task=taskService.createTask(taskMapper.fromDto(createTaskRequestDto));
+        CreateTaskRequest createTaskRequest=taskMapper.fromDto(createTaskRequestDto);
+        Task task=taskService.createTask(createTaskRequest);
         return new ResponseEntity<>(taskMapper.toDto(task), HttpStatus.CREATED);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<TaskDto>> listTasks()
+    {
+        List<Task> tasks=taskService.listTasks();
+        List<TaskDto> taskDtoList=tasks.stream().map(taskMapper::toDto).toList();
+        return new ResponseEntity<>(taskDtoList, HttpStatus.CREATED);
     }
 
 }
