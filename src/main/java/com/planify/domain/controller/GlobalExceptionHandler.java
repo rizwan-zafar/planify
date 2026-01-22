@@ -1,6 +1,7 @@
 package com.planify.domain.controller;
 
 import com.planify.domain.dto.ErrorDto;
+import com.planify.domain.exception.ProjectNotFoundException;
 import com.planify.domain.exception.TaskNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
@@ -56,5 +57,21 @@ public class GlobalExceptionHandler {
         );
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorDto);
+    }
+
+    @ExceptionHandler(ProjectNotFoundException.class)
+    public ResponseEntity<ErrorDto> handleProjectNotFoundException(
+            ProjectNotFoundException ex,HttpServletRequest request
+    )
+    {
+        ErrorDto errorDto=new ErrorDto(
+                Instant.now(),
+                HttpStatus.BAD_REQUEST.value(),
+                HttpStatus.BAD_REQUEST.getReasonPhrase(),
+                request.getRequestURI(),
+                String.format("Project with id  %s not found",ex.getId()));
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorDto);
+
     }
 }

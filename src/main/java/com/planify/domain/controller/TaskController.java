@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -40,7 +41,7 @@ public class TaskController {
     {
         List<Task> tasks=taskService.listTasks();
         List<TaskDto> taskDtoList=tasks.stream().map(taskMapper::toDto).toList();
-        return new ResponseEntity<>(taskDtoList, HttpStatus.CREATED);
+        return new ResponseEntity<>(taskDtoList, HttpStatus.OK);
     }
 
     @PutMapping("/{taskId}")
@@ -53,13 +54,11 @@ public class TaskController {
 
     }
 
+
     @DeleteMapping("/{taskId}")
-    public ResponseEntity<TaskDto> deleteTask(@PathVariable UUID taskId)
-    {
-
+    public ResponseEntity<Map<String, String>> deleteTask(@PathVariable UUID taskId) {
         taskService.deteTask(taskId);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-
+        return ResponseEntity.ok(Map.of("message", "Task deleted successfully"));
     }
 
 
