@@ -1,8 +1,10 @@
 package com.planify.domain.mapper.Impl;
 
 import com.planify.domain.CreateTaskRequest;
+import com.planify.domain.UpdateTaskRequest;
 import com.planify.domain.dto.CreateTaskRequestDto;
 import com.planify.domain.dto.TaskDto;
+import com.planify.domain.dto.UpdateTaskRequestDto;
 import com.planify.domain.entity.Task;
 import com.planify.domain.mapper.TaskMapper;
 import org.springframework.stereotype.Component;
@@ -15,6 +17,17 @@ public class TaskMapperImpl implements TaskMapper {
                 dto.title(),
                 dto.description(),
                 dto.dueDate(),
+                dto.priority()
+        );
+    }
+
+    @Override
+    public UpdateTaskRequest fromDto(UpdateTaskRequestDto dto) {
+        return new UpdateTaskRequest(
+                dto.title(),
+                dto.description(),
+                dto.dueDate(),
+                dto.status(),
                 dto.priority()
         );
     }
