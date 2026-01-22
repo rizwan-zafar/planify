@@ -45,3 +45,16 @@ public class Project {
     Instant updated;
 
 }
+//>>>Request
+//name
+//description
+//startDate
+//endDate
+
+//Response
+// id
+// name
+// description
+// startDate
+// endDate
+// status

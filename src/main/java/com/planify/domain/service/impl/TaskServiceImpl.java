@@ -1,6 +1,6 @@
 package com.planify.domain.service.impl;
 
-import com.planify.TaskRepository;
+import com.planify.repository.TaskRepository;
 import com.planify.domain.CreateTaskRequest;
 import com.planify.domain.UpdateTaskRequest;
 import com.planify.domain.entity.Task;

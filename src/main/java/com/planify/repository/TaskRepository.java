@@ -1,4 +1,4 @@
-package com.planify;
+package com.planify.repository;
 
 import com.planify.domain.entity.Task;
 import org.springframework.data.jpa.repository.JpaRepository;
