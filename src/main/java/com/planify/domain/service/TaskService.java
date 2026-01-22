@@ -11,4 +11,5 @@ public interface TaskService {
     Task createTask(CreateTaskRequest request);
     List<Task> listTasks();
     Task updateTask(UUID id, UpdateTaskRequest request);
+    void deteTask(UUID id);
 }
