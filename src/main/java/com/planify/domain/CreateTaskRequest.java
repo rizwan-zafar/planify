@@ -1,6 +1,6 @@
 package com.planify.domain;
 
-import com.planify.domain.entity.TaskPriority;
+import com.planify.domain.enums.TaskPriority;
 
 import java.time.LocalDate;
 

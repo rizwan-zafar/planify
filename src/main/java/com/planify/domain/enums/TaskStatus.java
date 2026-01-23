@@ -1,4 +1,4 @@
-package com.planify.domain.entity;
+package com.planify.domain.enums;
 
 public enum TaskStatus {
     OPEN,

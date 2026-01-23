@@ -1,6 +1,6 @@
 package com.planify.domain.dto;
 
-import com.planify.domain.entity.ProjectStatus;
+import com.planify.domain.enums.ProjectStatus;
 
 import java.time.LocalDate;
 import java.util.UUID;

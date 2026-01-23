@@ -1,7 +1,7 @@
 package com.planify.domain.dto;
 
-import com.planify.domain.entity.TaskPriority;
-import com.planify.domain.entity.TaskStatus;
+import com.planify.domain.enums.TaskPriority;
+import com.planify.domain.enums.TaskStatus;
 import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;

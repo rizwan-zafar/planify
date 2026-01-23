@@ -4,7 +4,7 @@ import com.planify.repository.TaskRepository;
 import com.planify.domain.CreateTaskRequest;
 import com.planify.domain.UpdateTaskRequest;
 import com.planify.domain.entity.Task;
-import com.planify.domain.entity.TaskStatus;
+import com.planify.domain.enums.TaskStatus;
 import com.planify.domain.exception.TaskNotFoundException;
 import com.planify.domain.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;

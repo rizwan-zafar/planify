@@ -1,5 +1,6 @@
 package com.planify.domain.entity;
 
+import com.planify.domain.enums.ProjectStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -44,17 +45,8 @@ public class Project {
     @Column(name = "updated",nullable = false)
     Instant updated;
 
-}
-//>>>Request
-//name
-//description
-//startDate
-//endDate
+    @ManyToOne
+    @JoinColumn(name="manager_id",nullable = true)
+    private Manager manager;
 
-//Response
-// id
-// name
-// description
-// startDate
-// endDate
-// status
+}

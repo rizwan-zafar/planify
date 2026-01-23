@@ -1,6 +1,5 @@
 package com.planify.domain.dto;
 
-import com.planify.domain.entity.ProjectStatus;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

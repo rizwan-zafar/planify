@@ -3,8 +3,7 @@ package com.planify.domain.service.impl;
 import com.planify.domain.dto.CreateProjectRequestDto;
 import com.planify.domain.dto.UpdateProjectRequestDto;
 import com.planify.domain.entity.Project;
-import com.planify.domain.entity.ProjectStatus;
-import com.planify.domain.entity.Task;
+import com.planify.domain.enums.ProjectStatus;
 import com.planify.domain.exception.ProjectNotFoundException;
 import com.planify.domain.exception.TaskNotFoundException;
 import com.planify.domain.service.ProjectService;
@@ -15,7 +14,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.time.InstantSource;
 import java.util.List;
 import java.util.UUID;
 
@@ -34,7 +32,7 @@ public class ProjectServiceImpl implements ProjectService {
         if (!taskRepository.existsById(request.task())) {
             throw new TaskNotFoundException(request.task());
         }
-        Project project =new Project(null,request.task(),request.name(), request.description(), request.startDate(),request.endDate(), ProjectStatus.OPEN,now,now);
+        Project project =new Project(null,request.task(),request.name(), request.description(), request.startDate(),request.endDate(), ProjectStatus.OPEN,now,now,null);
         return projectRepository.save(project);
     }
 

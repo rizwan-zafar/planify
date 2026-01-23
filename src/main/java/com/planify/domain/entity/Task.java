@@ -1,4 +1,6 @@
 package com.planify.domain.entity;
+import com.planify.domain.enums.TaskPriority;
+import com.planify.domain.enums.TaskStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
