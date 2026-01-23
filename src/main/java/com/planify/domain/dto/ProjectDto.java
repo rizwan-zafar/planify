@@ -9,17 +9,8 @@ public record ProjectDto(
         UUID id,
         String name,
         String description,
+        TaskDto task,
         LocalDate startDate,
         LocalDate endDate,
         ProjectStatus status
-
-) {
-
-}
-//Response
-// id
-// name
-// description
-// startDate
-// endDate
-// status
+) {}

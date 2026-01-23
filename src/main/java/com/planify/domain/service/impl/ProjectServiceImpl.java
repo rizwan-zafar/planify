@@ -9,6 +9,7 @@ import com.planify.domain.exception.ProjectNotFoundException;
 import com.planify.domain.exception.TaskNotFoundException;
 import com.planify.domain.service.ProjectService;
 import com.planify.repository.ProjectRepository;
+import com.planify.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -24,10 +25,16 @@ public class ProjectServiceImpl implements ProjectService {
     @Autowired
     private ProjectRepository projectRepository;
 
+    @Autowired
+    private TaskRepository taskRepository;
+
     @Override
     public Project createProject(CreateProjectRequestDto request) {
         Instant now=Instant.now();
-        Project project =new Project(null,null,request.name(), request.description(), request.startDate(),request.endDate(), ProjectStatus.OPEN,now,now);
+        if (!taskRepository.existsById(request.task())) {
+            throw new TaskNotFoundException(request.task());
+        }
+        Project project =new Project(null,request.task(),request.name(), request.description(), request.startDate(),request.endDate(), ProjectStatus.OPEN,now,now);
         return projectRepository.save(project);
     }
 
@@ -36,6 +43,7 @@ public class ProjectServiceImpl implements ProjectService {
       Project project = projectRepository.findById(id).orElseThrow(()-> new ProjectNotFoundException(id));
         project.setName(request.name());
         project.setDescription(request.description());
+        project.setTask(request.task());
         project.setStartDate(request.startDate());
         project.setEndDate(request.endDate());
         project.setStatus(request.status());

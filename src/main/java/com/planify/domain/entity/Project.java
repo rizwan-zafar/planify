@@ -20,7 +20,7 @@ public class Project {
     private UUID id;
 
     @Column(name="taskId",updatable = true,nullable = true)
-    private UUID taskId;
+    private UUID task;
 
     @Column(name="name",updatable = true,nullable = false)
     private String name;
