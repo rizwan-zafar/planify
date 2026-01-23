@@ -1,6 +1,7 @@
 package com.planify.domain.controller;
 
 import com.planify.domain.dto.ErrorDto;
+import com.planify.domain.exception.ManagerNotFoundException;
 import com.planify.domain.exception.ProjectNotFoundException;
 import com.planify.domain.exception.TaskNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -73,5 +74,18 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorDto);
 
+    }
+
+    public ResponseEntity<ErrorDto> handleManagerNotFoundException(
+            ManagerNotFoundException ex,HttpServletRequest request
+    ){
+
+        ErrorDto errorDto=new ErrorDto(
+                Instant.now(),
+                HttpStatus.BAD_REQUEST.value(),
+                HttpStatus.BAD_REQUEST.getReasonPhrase(),
+                request.getRequestURI(),
+                String.format("Manger with this id %s not found", ex.getId()));
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorDto);
     }
 }

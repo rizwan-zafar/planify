@@ -44,3 +44,17 @@ public class Manager {
     private List<Project> projects;
 
 }
+
+// request
+// name
+// email
+// department
+// gender
+
+//Respone
+// id
+// name
+// email
+// department
+// gender
+
