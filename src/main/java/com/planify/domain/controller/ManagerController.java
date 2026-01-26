@@ -6,6 +6,7 @@ import com.planify.domain.dto.UpdateManagerRequestDto;
 import com.planify.domain.entity.Manager;
 import com.planify.domain.mapper.ManagerMapper;
 import com.planify.domain.service.ManagerService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,8 +27,9 @@ public class ManagerController {
 
 
     @PostMapping
-    public ResponseEntity<ManagerDto> createManager(CreateManagerRequestDto requestDto)
+    public ResponseEntity<ManagerDto> createManager(@Valid @RequestBody CreateManagerRequestDto requestDto)
     {
+
         Manager manager=managerService.createManager(requestDto);
         return new ResponseEntity<>(managerMapper.toDto(manager), HttpStatus.CREATED);
     }

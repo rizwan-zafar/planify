@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -21,7 +22,7 @@ public class Project {
     private UUID id;
 
     @Column(name="taskId",updatable = true,nullable = true)
-    private UUID task;
+    private List<UUID> task;
 
     @Column(name="name",updatable = true,nullable = false)
     private String name;
@@ -45,7 +46,7 @@ public class Project {
     @Column(name = "updated",nullable = false)
     Instant updated;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="manager_id",nullable = true)
     private Manager manager;
 

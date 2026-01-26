@@ -2,11 +2,14 @@ package com.planify.domain.service.impl;
 
 import com.planify.domain.dto.CreateProjectRequestDto;
 import com.planify.domain.dto.UpdateProjectRequestDto;
+import com.planify.domain.entity.Manager;
 import com.planify.domain.entity.Project;
 import com.planify.domain.enums.ProjectStatus;
+import com.planify.domain.exception.ManagerNotFoundException;
 import com.planify.domain.exception.ProjectNotFoundException;
 import com.planify.domain.exception.TaskNotFoundException;
 import com.planify.domain.service.ProjectService;
+import com.planify.repository.ManagerRepository;
 import com.planify.repository.ProjectRepository;
 import com.planify.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +29,17 @@ public class ProjectServiceImpl implements ProjectService {
     @Autowired
     private TaskRepository taskRepository;
 
+    @Autowired
+    private ManagerRepository managerRepository;
+
     @Override
     public Project createProject(CreateProjectRequestDto request) {
         Instant now=Instant.now();
-        if (!taskRepository.existsById(request.task())) {
-            throw new TaskNotFoundException(request.task());
+        UUID missingTaskId = request.task().stream()
+                .filter(taskId -> !taskRepository.existsById(taskId))
+                .findFirst().orElse(null);;
+        if (missingTaskId!=null) {
+            throw new TaskNotFoundException(missingTaskId);
         }
         Project project =new Project(null,request.task(),request.name(), request.description(), request.startDate(),request.endDate(), ProjectStatus.OPEN,now,now,null);
         return projectRepository.save(project);
@@ -39,6 +48,7 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public Project updateProject(UUID id, UpdateProjectRequestDto request) {
       Project project = projectRepository.findById(id).orElseThrow(()-> new ProjectNotFoundException(id));
+
         project.setName(request.name());
         project.setDescription(request.description());
         project.setTask(request.task());

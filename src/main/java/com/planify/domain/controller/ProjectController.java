@@ -30,10 +30,11 @@ public class ProjectController {
         return new ResponseEntity<>( projectMapper.toDto(project),HttpStatus.CREATED);
     }
 
+
     @PutMapping("/{projectId}")
-    public ResponseEntity<ProjectDto> updateProject(@RequestParam UUID id, @Valid @RequestBody UpdateProjectRequestDto updateProjectRequestDto)
+    public ResponseEntity<ProjectDto> updateProject(@PathVariable UUID projectId, @Valid @RequestBody UpdateProjectRequestDto updateProjectRequestDto)
     {
-        Project project=projectService.updateProject(id,updateProjectRequestDto);
+        Project project=projectService.updateProject(projectId,updateProjectRequestDto);
         return new ResponseEntity<>( projectMapper.toDto(project),HttpStatus.CREATED);
     }
     @GetMapping

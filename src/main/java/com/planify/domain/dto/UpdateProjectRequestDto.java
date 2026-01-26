@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -20,7 +21,7 @@ public record UpdateProjectRequestDto(
         String description,
 
         @NotNull(message = ERROR_MESSAGE_SELECT_TASK)
-        UUID task,
+        List<UUID> task,
 
         @NotNull(message = ERROR_MESSAGE_START_DATE_FUTURE)
         @FutureOrPresent(message = ERROR_MESSAGE_START_DATE_FUTURE)
@@ -31,7 +32,11 @@ public record UpdateProjectRequestDto(
         LocalDate endDate,
 
         @NotNull(message = ERROR_MESSAGE_TASK_STATUS)
-        ProjectStatus status
+        ProjectStatus status,
+
+        UUID mangerId
+
+
 ) {
     private static final String ERROR_MESSAGE_NAME_LENGTH="Title must be between 1 to 255 characters";
     private static final String ERROR_MESSAGE_DESCRIPTION_LENGTH="Description must be less then 1000 characters";

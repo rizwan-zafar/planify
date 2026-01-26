@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 public record CreateProjectRequestDto(
@@ -18,7 +19,7 @@ public record CreateProjectRequestDto(
         String description,
 
         @NotNull(message = ERROR_MESSAGE_SELECT_TASK)
-        UUID task,
+        List<UUID> task,
 
         @NotNull(message = ERROR_MESSAGE_START_DATE_FUTURE)
         @FutureOrPresent(message = ERROR_MESSAGE_START_DATE_FUTURE)
