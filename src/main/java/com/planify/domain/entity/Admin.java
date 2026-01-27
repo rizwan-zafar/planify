@@ -20,7 +20,7 @@ public class Admin {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(name="name",)
+    @Column(name="name")
     private String name;
 
     @Column(name = "email",unique = true)
@@ -39,3 +39,14 @@ public class Admin {
     private Instant updated;
 
 }
+
+//request
+// name,
+//email
+//password
+//role
+
+//response
+// name,
+//email
+//role
