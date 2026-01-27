@@ -1,5 +1,6 @@
 package com.planify.domain.dto;
 
+import com.planify.domain.enums.AdminRole;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -17,7 +18,8 @@ public record CreateAdminRequestDto(
         String confirm_password,
 
         @NotBlank(message = ERROR_MESSAGE_ADMIN_ROLE)
-        String role
+
+        AdminRole role
 
 ) {
     private  static final String ERROR_MESSAGE_NAME = "Name can not be empty";
