@@ -1,6 +1,7 @@
 package com.planify.domain.controller;
 
 import com.planify.domain.dto.ErrorDto;
+import com.planify.domain.exception.AdminPasswordNotMatchException;
 import com.planify.domain.exception.ManagerNotFoundException;
 import com.planify.domain.exception.ProjectNotFoundException;
 import com.planify.domain.exception.TaskNotFoundException;
@@ -76,6 +77,7 @@ public class GlobalExceptionHandler {
 
     }
 
+    @ExceptionHandler(ManagerNotFoundException.class)
     public ResponseEntity<ErrorDto> handleManagerNotFoundException(
             ManagerNotFoundException ex,HttpServletRequest request
     ){
@@ -86,6 +88,20 @@ public class GlobalExceptionHandler {
                 HttpStatus.BAD_REQUEST.getReasonPhrase(),
                 request.getRequestURI(),
                 String.format("Manger with this id %s not found", ex.getId()));
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorDto);
+    }
+
+    @ExceptionHandler(AdminPasswordNotMatchException.class)
+    public ResponseEntity<ErrorDto> handleAdminPasswordNotMatchException(
+            AdminPasswordNotMatchException ex, HttpServletRequest request
+    ){
+
+        ErrorDto errorDto=new ErrorDto(
+                Instant.now(),
+                HttpStatus.BAD_REQUEST.value(),
+                HttpStatus.BAD_REQUEST.getReasonPhrase(),
+                request.getRequestURI(),
+                "Password and Confirm Password do not match");
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorDto);
     }
 }
