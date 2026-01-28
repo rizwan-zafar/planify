@@ -17,7 +17,7 @@ public record CreateAdminRequestDto(
         @NotBlank(message = ERROR_MESSAGE_CONFIRM_PASSWORD)
         String confirm_password,
 
-        @NotBlank(message = ERROR_MESSAGE_ADMIN_ROLE)
+        @NotNull(message = ERROR_MESSAGE_ADMIN_ROLE)
 
         AdminRole role
 
