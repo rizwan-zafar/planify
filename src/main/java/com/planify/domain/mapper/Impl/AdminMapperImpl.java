@@ -13,5 +13,6 @@ public class AdminMapperImpl implements AdminMapper {
                     admin.getName(),
                     admin.getEmail(),
                     admin.getRole());
+
     }
 }

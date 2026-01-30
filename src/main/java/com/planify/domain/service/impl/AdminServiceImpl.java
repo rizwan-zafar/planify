@@ -8,6 +8,7 @@ import com.planify.domain.mapper.AdminMapper;
 import com.planify.domain.service.AdminService;
 import com.planify.repository.AdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -29,7 +30,9 @@ public class AdminServiceImpl implements AdminService {
         if (!request.password().equals(request.confirm_password())) {
             throw new AdminPasswordNotMatchException("Password and Confirm Password do not match");
         }
-        Admin admin=new Admin(null, request.name(), request.email(), request.password(), request.role(), now,now);
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String hashedPassword = encoder.encode(request.password());
+        Admin admin=new Admin(null, request.name(), request.email(), hashedPassword, request.role(), now,now);
         return adminRepository.save(admin);
     }
 
