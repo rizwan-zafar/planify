@@ -1,6 +1,5 @@
 package com.planify.domain.service.impl;
 
-import com.planify.domain.dto.AdminDto;
 import com.planify.domain.dto.CreateAdminRequestDto;
 import com.planify.domain.entity.Admin;
 import com.planify.domain.exception.AdminPasswordNotMatchException;
@@ -12,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.List;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -34,6 +34,11 @@ public class AdminServiceImpl implements AdminService {
         String hashedPassword = encoder.encode(request.password());
         Admin admin=new Admin(null, request.name(), request.email(), hashedPassword, request.role(), now,now);
         return adminRepository.save(admin);
+    }
+
+    @Override
+    public List<Admin> listAdmin() {
+        return adminRepository.findAll();
     }
 
 }
